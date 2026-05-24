@@ -1,0 +1,45 @@
+.venv/
+.DS_Store
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+
+/dist/
+/build/
+/*.egg-info/
+*.egg-info/
+
+# Keep firmware and captures out of this repo.
+*.bin
+*.hex
+*.elf
+*.map
+*.img
+*.dmg
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.payload
+*.payload.bin
+*.decompressed.bin
+*.pcap
+*.pcapng
+*.hci
+*.btsnoop
+
+# Keep local secrets out of git.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision
+
+# Local runtime files.
+.tenon-device
+.tenon-codex-light-state

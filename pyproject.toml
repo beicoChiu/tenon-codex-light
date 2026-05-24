@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tenon-codex-light"
+version = "0.1.0"
+description = "Local BLE bridge for using Beflo Tenon as a Codex status light"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["bleak>=0.22"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+tenon-hook-state = "tenon_codex_light.hook_cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
