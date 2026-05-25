@@ -70,7 +70,7 @@ light," not "restore my previous desk lighting settings."
 - [Beflo Tenon or Tenon mini](https://gobeflo.com)
 - Codex with command hooks enabled
 - Python 3.11 or newer for setup scripts
-- Bleak, installed automatically from `requirements.txt`
+- [Bleak](https://github.com/hbldh/bleak), installed from `requirements.txt`
 
 Tenon may allow only one active Bluetooth connection at a time. Before running
 Tenon Codex Light, check the official Beflo/Tenon mobile app and make sure it is
@@ -79,8 +79,10 @@ Tenon releases the Bluetooth connection.
 
 ## Quick Start
 
-Clone the repository and install dependencies. This installs Bleak, the Python
-Bluetooth package used by the setup and helper scripts:
+Clone the repository and install dependencies. Tenon Codex Light uses
+[Bleak](https://github.com/hbldh/bleak) for Python Bluetooth helper scripts;
+`requirements.txt` is the project dependency file so setup, CI, and future
+runtime dependencies stay consistent.
 
 ```bash
 python3 -m venv .venv
