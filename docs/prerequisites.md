@@ -1,4 +1,4 @@
-# Prerequisites
+# Setup Requirements
 
 ## Hardware
 
@@ -61,6 +61,10 @@ tail -n 120 ~/Library/Logs/TenonCodexLight/scan.log
 
 ## BLE Discovery Requirements
 
+For real hardware access on macOS, prefer the native app path above. The Python
+scanner remains useful for development environments where macOS Bluetooth
+privacy requirements allow it.
+
 The first real hardware task is local service and characteristic discovery:
 
 ```bash
@@ -76,7 +80,7 @@ The scan output should show enough local detail to choose the intended Tenon:
 - characteristic UUIDs
 - characteristic properties
 
-Do not start write probes until the LED strip characteristic is confirmed.
+Do not start write probes until the intended light characteristic is confirmed.
 Do not publish scan logs with private device identifiers.
 
 ## Write Probe Requirements

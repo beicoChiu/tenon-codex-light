@@ -4,11 +4,10 @@ These notes document the public-safe BLE compatibility surface used by Tenon
 Codex Light. They are intentionally minimal and should be validated against a
 real device during local setup.
 
-## BLE LED Strip Characteristic
+## BLE Light Characteristic
 
-Tenon exposes a BLE service with a dedicated LED strip read/write
-characteristic. Discovery should use service and characteristic UUIDs instead
-of fixed handles.
+Tenon exposes a BLE service with a dedicated light read/write characteristic.
+Discovery should use service and characteristic UUIDs instead of fixed handles.
 
 Discovery output should include the relevant service UUID, characteristic UUID,
 and characteristic properties. Review scan output locally before write testing.
@@ -22,7 +21,7 @@ A native macOS scan app should discover a nearby Tenon advertising a compatible 
 service: 4D543739-3333-2E4F-4E4F-4F2E4445534B
 ```
 
-The LED strip characteristic is:
+The compatible light characteristic is:
 
 ```text
 4D543739-3333-2E4F-4E4F-4F2E434C4544
@@ -131,14 +130,13 @@ Safety constraints:
 - hue is restricted to `0..359`
 - saturation and value are restricted to `0..100`
 
-## LED Strip Command IDs
+## Light Command Compatibility
 
-Known command IDs used for compatibility notes:
+Known light command IDs used by this project:
 
 ```text
 0x03 set color HSV
-0x04 get effect control format
-0x05 set effect control format
+0x05 set compatible effect payload
 0x10 unsupported/persistent lighting command, denied by this project
 ```
 
@@ -219,12 +217,6 @@ response mode.
 
 ## Explicit Exclusions
 
-This project must not send BLE OTA commands:
-
-```text
-0x00 metadata
-0x01 data transfer
-0x02 upgrade trigger
-```
-
-Those belong to the firmware update protocol and can create brick risk if misused.
+This project must not send firmware update, OTA, metadata-transfer, or upgrade
+trigger commands. Those operations are outside the project scope and can create
+device risk if misused.

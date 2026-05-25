@@ -88,7 +88,8 @@ Repository:
 Codex lifecycle event
   -> hook writes enum only
   -> user-private local state file
-  -> native macOS daemon maps enum to response-mode HSV command
+  -> native macOS daemon maps enum to allowlisted Tenon light command
+  -> response-mode HSV fallback if needed
   -> BLE write to allowlisted Tenon
 ```
 
@@ -107,9 +108,9 @@ unknown BLE device -> write
 OTA/firmware command -> BLE write
 ```
 
-## Public Release Gate
+## Ongoing Repository Hygiene
 
-Before making the repository public:
+For public development:
 
 - run the secret scan
 - run the firmware/binary denylist

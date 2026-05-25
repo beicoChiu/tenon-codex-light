@@ -1,6 +1,8 @@
 # Codex Hooks Integration
 
-Codex lifecycle hooks are the primary integration path for Tenon Codex Light.
+Codex lifecycle hooks are the first supported workflow integration for Tenon
+Codex Light. They turn local agent lifecycle events into an ambient Tenon
+workspace signal.
 
 Reference: <https://developers.openai.com/codex/hooks>
 
@@ -15,13 +17,20 @@ Codex hooks
   -> Tenon LED
 ```
 
-The hook layer should never talk to BLE directly. It should only write the desired state and exit quickly. The current production hardware path is the native macOS daemon, which watches the state file and writes allowlisted light states to the selected Tenon device. Effects are used by default for reviewed states, and response-mode HSV remains the fallback path.
+The hook layer should never talk to BLE directly. It should only write the
+desired state and exit quickly. The current production hardware path is the
+native macOS daemon, which watches the state file and writes allowlisted light
+states to the selected Tenon device. Effects are used by default for reviewed
+states, and response-mode HSV remains the fallback path.
 
 The native daemon prevents duplicate runs for the same state file and device. On clean exit, SIGINT, SIGTERM, or app termination where practical, it attempts one final safe `idle` HSV write. This is a fallback status color, not restoration of previous desk settings.
 
-Future daemon hardening may add stronger launch-agent lifecycle management. Do not rely on automatic startup or restart until it is implemented and tested.
+Future daemon hardening may add stronger launch-agent lifecycle management. Do
+not rely on automatic startup or restart until it is implemented and tested.
 
-Hooks must be privacy-preserving. They must not read prompt text, tool input, file paths, or raw event payloads except for the minimum event metadata needed to choose a fixed state enum.
+Hooks must be privacy-preserving. They must not read prompt text, tool input,
+file paths, or raw event payloads except for the minimum event metadata needed
+to choose a fixed state enum.
 
 ## Event Mapping
 

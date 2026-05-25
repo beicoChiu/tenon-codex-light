@@ -1,18 +1,42 @@
 # Tenon Codex Light
 
-Turn your Beflo Tenon LED strip into a local Codex status light.
+A programmable ambient workspace signal layer for AI-assisted workflows.
 
-Unofficial local automation side project created by a Beflo founder. This is not
-an official Beflo product, firmware release, or supported integration, and it is
+Tenon Codex Light turns [Beflo Tenon and Tenon mini](https://gobeflo.com)
+devices into physical status indicators for local automation systems, coding
+agents, focus workflows, and ergonomic routines.
+
+It is local-first: no cloud dependency, no prompt uploading, no analytics, and
+no firmware modification. Codex is the first supported workflow, but the larger
+idea is a programmable workspace where software state can become calm physical
+feedback.
+
+This is an independent side project created by Beico Chiu. It is not an
+official Beflo product, firmware release, or supported integration, and it is
 not affiliated with or supported by OpenAI.
 
-Tenon Codex Light runs on your Mac, listens for Codex state changes, and updates
-your Tenon light over Bluetooth. It is local-only: no cloud service, no prompt
-uploading, and no firmware changes.
+## What It Does
 
-## What The Light Means
+Tenon Codex Light runs a small native macOS daemon that listens to a local state
+file. Codex lifecycle hooks write simple state names such as `working` or
+`needs_input`, and the daemon maps those states to allowlisted Tenon light
+presets over Bluetooth.
 
-| Codex state | Tenon light |
+```text
+AI agent / local workflow
+  -> local hook
+  -> user-private state file
+  -> native macOS daemon
+  -> Bluetooth
+  -> ambient Tenon workspace signal
+```
+
+This makes long-running local agent work visible without opening another
+dashboard, browser tab, or notification surface.
+
+## Workspace Signals
+
+| Workflow state | Tenon signal |
 | --- | --- |
 | Idle | Cloudy, steady |
 | Working | Aurora, breathing |
@@ -22,6 +46,23 @@ uploading, and no firmware changes.
 
 `restore` is an internal cleanup fallback. It means "return to a safe idle-like
 light," not "restore my previous desk lighting settings."
+
+## Design Principles
+
+- Ambient workspace feedback, not a notification spam layer.
+- Local-first automation, not cloud IoT.
+- Physical AI visibility, not another screen.
+- Existing Tenon light behavior, not firmware modification.
+- Calm workstation aesthetics, not novelty lighting.
+
+## Learn More
+
+- [Architecture](docs/architecture.md)
+- [Workflow Ideas](docs/workflows.md)
+- [Setup Requirements](docs/prerequisites.md)
+- [Codex Hooks Integration](docs/codex-hooks-integration.md)
+- [Tenon Light Presets](docs/tenon-light-presets.md)
+- [Security Model](docs/security-model.md)
 
 ## Requirements
 
