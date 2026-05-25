@@ -23,7 +23,10 @@ native macOS daemon, which watches the state file and writes allowlisted light
 states to the selected Tenon device. Effects are used by default for reviewed
 states, and response-mode HSV remains the fallback path.
 
-The native daemon prevents duplicate runs for the same state file and device. On clean exit, SIGINT, SIGTERM, or app termination where practical, it attempts one final safe `idle` HSV write. This is a fallback status color, not restoration of previous desk settings.
+The native daemon prevents duplicate runs for the same state file and device. On
+clean exit, SIGINT, SIGTERM, or app termination where practical, it attempts one
+final safe `idle` HSV write. This is a fallback status color, not restoration of
+previous desk settings.
 
 Future daemon hardening may add stronger launch-agent lifecycle management. Do
 not rely on automatic startup or restart until it is implemented and tested.
@@ -65,7 +68,8 @@ For a single project, repo-local `.codex/hooks.json` is easiest. A user-level
 - `async: true` is parsed but skipped.
 - `prompt` and `agent` handlers are parsed but skipped.
 - Multiple matching command hooks may run concurrently.
-- `PreToolUse` is useful for status transitions, but it is not a complete enforcement boundary.
+- `PreToolUse` is useful for status transitions, but it is not a complete
+  enforcement boundary.
 
 ## Hook Script Behavior
 
@@ -115,7 +119,8 @@ The command:
 
 - accepts only one fixed enum argument
 - writes only `~/Library/Application Support/TenonCodexLight/state` by default
-- supports `--state-file` and `TENON_CODEX_LIGHT_STATE_FILE` for tests and advanced users
+- supports `--state-file` and `TENON_CODEX_LIGHT_STATE_FILE` for tests and
+  advanced users
 - returns quickly
 - does not read stdin
 - does not read prompt text
@@ -195,7 +200,8 @@ The command:
 }
 ```
 
-Do not build hook commands by concatenating prompt text, tool input, file paths, or other untrusted strings.
+Do not build hook commands by concatenating prompt text, tool input, file paths,
+or other untrusted strings.
 
 ## Manual Test
 

@@ -79,10 +79,11 @@ Tenon releases the Bluetooth connection.
 
 ## Quick Start
 
-Clone the repository and install dependencies. Tenon Codex Light uses
-[Bleak](https://github.com/hbldh/bleak) for Python Bluetooth helper scripts;
-`requirements.txt` is the project dependency file so setup, CI, and future
-runtime dependencies stay consistent.
+### 1. Install Dependencies
+
+Tenon Codex Light uses [Bleak](https://github.com/hbldh/bleak) for Python
+Bluetooth helper scripts. `requirements.txt` is the project dependency file so
+setup, CI, and future runtime dependencies stay consistent.
 
 ```bash
 python3 -m venv .venv
@@ -91,13 +92,13 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e .
 ```
 
-Build the macOS Bluetooth app:
+### 2. Build The Native macOS App
 
 ```bash
 scripts/build-macos-scan-app
 ```
 
-Scan for your Tenon:
+### 3. Scan For Your Tenon
 
 ```bash
 open "build/Tenon Codex Light Scan.app" --args --duration 8 --verbose
@@ -106,7 +107,7 @@ open "build/Tenon Codex Light Scan.app" --args --duration 8 --verbose
 Look in the scan output for your Tenon device identifier. Use that value as
 `<TENON_DEVICE_ID>` below.
 
-Start the Tenon daemon:
+### 4. Start The Daemon
 
 ```bash
 open -n -W "build/Tenon Codex Light Scan.app" --args \
@@ -114,7 +115,13 @@ open -n -W "build/Tenon Codex Light Scan.app" --args \
   --address <TENON_DEVICE_ID>
 ```
 
-In another terminal, test a few states:
+Keep this process running while you want the light to follow local workflow
+state. This project does not install a macOS LaunchAgent yet, so it will not
+automatically restart after logout, reboot, or a forced quit.
+
+### 5. Test The Light
+
+In another terminal:
 
 ```bash
 tenon-hook-state working
@@ -122,12 +129,48 @@ tenon-hook-state needs_input
 tenon-hook-state idle
 ```
 
-If the light changes correctly, connect Codex hooks using the example in
-[docs/codex-hooks-integration.md](docs/codex-hooks-integration.md).
+Expected result:
 
-Keep the daemon running while you want the light to follow Codex. This project
-does not install a macOS LaunchAgent yet, so it will not automatically restart
-after logout, reboot, or a forced quit.
+```text
+working     -> Aurora, breathing
+needs_input -> Lavender Sunset, moving
+idle        -> Cloudy, steady
+```
+
+### 6. Enable Codex Hooks
+
+If the light changes correctly, connect Codex hooks using the example in
+[docs/codex-hooks-integration.md](docs/codex-hooks-integration.md). The hook
+command can be used from any project after `.venv/bin/python -m pip install -e .`
+installs `tenon-hook-state`.
+
+## Manual Test In 60 Seconds
+
+After the daemon is running, this should visibly cycle through the core signals:
+
+```bash
+tenon-hook-state idle
+sleep 1
+tenon-hook-state working
+sleep 2
+tenon-hook-state needs_input
+sleep 2
+tenon-hook-state error
+sleep 2
+tenon-hook-state idle
+```
+
+## Where Things Live
+
+| Item | Location |
+| --- | --- |
+| Native macOS app | `build/Tenon Codex Light Scan.app` |
+| State file | `~/Library/Application Support/TenonCodexLight/state` |
+| Log file | `~/Library/Logs/TenonCodexLight/scan.log` |
+| Hook command | `tenon-hook-state` |
+| Codex hooks example | [docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) |
+
+Do not publish logs that contain your device identifier.
 
 ## Codex Hook Setup
 
@@ -163,7 +206,7 @@ copy-pasteable `hooks.json` example.
 
 ## Troubleshooting
 
-If scanning finds no Tenon:
+### Scan Finds No Tenon
 
 - Make sure Tenon is powered on and close to your Mac.
 - Turn Bluetooth on.
@@ -172,21 +215,43 @@ If scanning finds no Tenon:
 - Check macOS Bluetooth permission for the app you are running.
 - Power-cycle Tenon and scan again.
 
-If the daemon cannot connect:
+### Daemon Cannot Connect
 
 - Confirm you copied the intended Tenon device identifier.
 - Make sure no other daemon instance is already running.
 - If the official Beflo/Tenon mobile app is connected, tap disconnect in the
   app so Tenon releases the Bluetooth connection.
+- Check the daemon log:
+
+```bash
+tail -n 120 ~/Library/Logs/TenonCodexLight/scan.log
+```
+
 - Restart the daemon.
 
-If macOS blocks the app the first time:
+### Hooks Run But The Light Does Not Change
+
+- Confirm the daemon is still running.
+- Check the state file:
+
+```bash
+cat "$HOME/Library/Application Support/TenonCodexLight/state"
+```
+
+- Run the manual state test again:
+
+```bash
+tenon-hook-state working
+tenon-hook-state idle
+```
+
+### macOS Blocks The App The First Time
 
 - Open System Settings -> Privacy & Security.
 - Allow the locally built app to run.
 - Start the scan or daemon again.
 
-If the light is left in a status color:
+### Light Is Left In A Workflow Color
 
 ```bash
 tenon-hook-state idle
@@ -199,14 +264,6 @@ tenon-hook-state off
 ```
 
 You can also use the official Tenon/Beflo app to return to your normal lighting.
-
-Logs are written to:
-
-```text
-~/Library/Logs/TenonCodexLight/scan.log
-```
-
-Do not publish logs that contain your device identifier.
 
 ## Safety And Privacy
 
