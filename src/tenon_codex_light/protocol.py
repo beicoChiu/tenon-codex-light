@@ -1,4 +1,4 @@
-"""BLE payload helpers for Tenon LED strip control."""
+"""BLE payload helpers for Tenon ambient light control."""
 
 from __future__ import annotations
 

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tenon-codex-light"
 version = "0.1.0"
-description = "Local BLE bridge for using Beflo Tenon as a Codex status light"
+description = "Local-first ambient workspace signal layer for Beflo Tenon and AI-assisted workflows"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = ["bleak>=0.22"]

@@ -1,4 +1,4 @@
-"""Minimal BLE write probe for Tenon LED strip color."""
+"""Minimal BLE write probe for Tenon ambient light state."""
 
 from __future__ import annotations
 

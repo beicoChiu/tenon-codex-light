@@ -47,7 +47,7 @@ def main() -> int:
     color_parser.add_argument("--v", type=int, default=20, help="HSV value/brightness, defaults to 20 for safer write probes")
     color_parser.add_argument("--address", help="explicit BLE device address/identifier")
     color_parser.add_argument("--service-uuid", help="explicit Tenon service UUID")
-    color_parser.add_argument("--characteristic-uuid", help="explicit Tenon LED strip characteristic UUID")
+    color_parser.add_argument("--characteristic-uuid", help="explicit Tenon light characteristic UUID")
     color_parser.add_argument("--dry-run", action="store_true", help="print payload without writing")
     color_parser.add_argument("--verbose", action="store_true", help="print selected BLE options and payload")
     color_parser.add_argument(
@@ -71,7 +71,7 @@ def main() -> int:
     effect_parser.add_argument("--interval-ms", type=int, default=1000)
     effect_parser.add_argument("--address", help="explicit BLE device address/identifier")
     effect_parser.add_argument("--service-uuid", help="explicit Tenon service UUID")
-    effect_parser.add_argument("--characteristic-uuid", help="explicit Tenon LED strip characteristic UUID")
+    effect_parser.add_argument("--characteristic-uuid", help="explicit Tenon light characteristic UUID")
     effect_parser.add_argument("--write-mode", choices=["response", "no-response"], default="response")
     effect_parser.add_argument("--i-understand-this-is-experimental", action="store_true")
 
