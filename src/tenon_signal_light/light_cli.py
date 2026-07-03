@@ -198,18 +198,18 @@ def main() -> int:
                 print(f"source: {active}")
             return 0
         try:
-            token = write_active_source(args.value, args.selector_file)
+            active_source = write_active_source(args.value, args.selector_file)
         except (ValueError, OSError) as exc:
             print(str(exc), file=sys.stderr)
             return 2
         # Hand a clean slate to the new owner so the light does not stay stuck
         # in the previous agent's color. "off" leaves the light untouched.
-        if token != "off":
+        if active_source != "off":
             try:
                 write_state_file(SignalLightState.IDLE, args.state_file)
             except OSError:
                 pass
-        print(f"source: {token}")
+        print(f"source: {active_source}")
         return 0
 
     if args.command == "state":
