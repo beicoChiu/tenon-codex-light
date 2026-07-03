@@ -24,7 +24,8 @@ from tenon_signal_light.ble_write import (
 )
 from tenon_signal_light.daemon import NativeAppDaemonRunner
 from tenon_signal_light.state_file import default_state_file, write_state_file
-from tenon_signal_light.states import parse_state
+from tenon_signal_light.states import SignalLightState, parse_state
+from tenon_signal_light.selector import default_selector_file, read_active_source, write_active_source
 
 
 def format_payload(payload: bytes) -> str:
@@ -78,6 +79,17 @@ def main() -> int:
     state_parser = subparsers.add_parser("state", help="write a validated local light state")
     state_parser.add_argument("state", help="working, needs_input, idle, error, off, or restore")
     state_parser.add_argument("--state-file", type=Path, default=default_state_file())
+
+    source_parser = subparsers.add_parser("source", help="show or set which agent may drive the light")
+    source_parser.add_argument(
+        "value",
+        nargs="?",
+        default="status",
+        choices=["status", "claude", "codex", "off"],
+        help="status (default), or an agent to hand the light to, or off",
+    )
+    source_parser.add_argument("--selector-file", type=Path, default=default_selector_file())
+    source_parser.add_argument("--state-file", type=Path, default=default_state_file())
 
     daemon_parser = subparsers.add_parser("daemon", help="watch local state file and write Tenon light color")
     daemon_parser.add_argument("--address", required=True, help="explicit allowlisted Tenon BLE device identifier")
@@ -171,6 +183,31 @@ def main() -> int:
             print(str(exc), file=sys.stderr)
             return 2
         print("write: ok")
+        return 0
+
+    if args.command == "source":
+        if args.value == "status":
+            active = read_active_source(args.selector_file)
+            if active is None:
+                print("source: unset (all agents may drive the light)")
+            elif active == "off":
+                print("source: off (no agent drives the light)")
+            else:
+                print(f"source: {active}")
+            return 0
+        try:
+            token = write_active_source(args.value, args.selector_file)
+        except (ValueError, OSError) as exc:
+            print(str(exc), file=sys.stderr)
+            return 2
+        # Hand a clean slate to the new owner so the light does not stay stuck
+        # in the previous agent's color. "off" leaves the light untouched.
+        if token != "off":
+            try:
+                write_state_file(SignalLightState.IDLE, args.state_file)
+            except OSError:
+                pass
+        print(f"source: {token}")
         return 0
 
     if args.command == "state":

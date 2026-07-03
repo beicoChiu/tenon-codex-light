@@ -7,13 +7,14 @@ devices into physical status indicators for local automation systems, coding
 agents, focus workflows, and ergonomic routines.
 
 It is local-first: no cloud dependency, no prompt uploading, no analytics, and
-no firmware modification. Codex is the first supported workflow, but the larger
-idea is a programmable workspace where software state can become calm physical
-feedback.
+no firmware modification. Codex and Claude Code are supported workflows, but the
+larger idea is a programmable workspace where software state can become calm
+physical feedback. When you run more than one agent, an active-source selector
+decides which one drives the light so they never fight over it.
 
 This is an independent side project created by Beico Chiu. It is not an
 official Beflo product, firmware release, or supported integration, and it is
-not affiliated with or supported by OpenAI.
+not affiliated with or supported by OpenAI or Anthropic.
 
 ## What It Does
 
@@ -61,6 +62,8 @@ light," not "restore my previous desk lighting settings."
 - [Workflow Ideas](docs/workflows.md)
 - [Setup Requirements](docs/prerequisites.md)
 - [Codex Hooks Integration](docs/codex-hooks-integration.md)
+- [Claude Code Hooks Integration](docs/claude-hooks-integration.md)
+- [Multi-Agent Routing](docs/multi-agent-routing.md)
 - [Tenon Light Presets](docs/tenon-light-presets.md)
 - [Security Model](docs/security-model.md)
 
@@ -68,7 +71,7 @@ light," not "restore my previous desk lighting settings."
 
 - macOS
 - [Beflo Tenon or Tenon mini](https://gobeflo.com)
-- Codex with command hooks enabled
+- Codex and/or Claude Code with command hooks enabled
 - Python 3.11 or newer for setup scripts
 - [Bleak](https://github.com/hbldh/bleak), installed from `requirements.txt`
 
@@ -137,12 +140,15 @@ needs_input -> Lavender Sunset, moving
 idle        -> Cloudy, steady
 ```
 
-### 6. Enable Codex Hooks
+### 6. Enable Agent Hooks
 
-If the light changes correctly, connect Codex hooks using the example in
-[docs/codex-hooks-integration.md](docs/codex-hooks-integration.md). The hook
-command can be used from any project after `.venv/bin/python -m pip install -e .`
-installs `tenon-hook-state`.
+If the light changes correctly, connect your agent's hooks using the example in
+[docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) (Codex) or
+[docs/claude-hooks-integration.md](docs/claude-hooks-integration.md) (Claude
+Code). The hook command can be used from any project after
+`.venv/bin/python -m pip install -e .` installs `tenon-hook-state`. If you run
+both agents, see [docs/multi-agent-routing.md](docs/multi-agent-routing.md) to
+choose which one drives the light.
 
 ## Manual Test In 60 Seconds
 
@@ -166,13 +172,16 @@ tenon-hook-state idle
 | --- | --- |
 | Native macOS app | `build/Tenon Signal Light Scan.app` |
 | State file | `~/Library/Application Support/TenonSignalLight/state` |
+| Active-source selector | `~/Library/Application Support/TenonSignalLight/active_source` |
 | Log file | `~/Library/Logs/TenonSignalLight/scan.log` |
 | Hook command | `tenon-hook-state` |
 | Codex hooks example | [docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) |
+| Claude Code hooks example | [docs/claude-hooks-integration.md](docs/claude-hooks-integration.md) |
+| Multi-agent routing | [docs/multi-agent-routing.md](docs/multi-agent-routing.md) |
 
 Do not publish logs that contain your device identifier.
 
-## Codex Hook Setup
+## Agent Hook Setup
 
 The hook command is intentionally small and safe. It only writes one of these
 fixed states to a local state file:
@@ -191,18 +200,31 @@ does not call Bluetooth directly.
 
 Recommended event mapping:
 
-| Codex hook event | State |
-| --- | --- |
-| `SessionStart` | `idle` |
-| `UserPromptSubmit` | `working` |
-| `PreToolUse` | `working` |
-| `PermissionRequest` | `needs_input` |
-| `PostToolUse` | `working` |
-| `Stop` | `idle` |
+| State | Codex hook event | Claude Code hook event |
+| --- | --- | --- |
+| `idle` | `SessionStart`, `Stop` | `SessionStart`, `Stop` |
+| `working` | `UserPromptSubmit`, `PreToolUse`, `PostToolUse` | `UserPromptSubmit`, `PreToolUse`, `PostToolUse` |
+| `needs_input` | `PermissionRequest` | `Notification` |
 
 After installation, hooks can call `tenon-hook-state` directly. See
-[docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) for a
-copy-pasteable `hooks.json` example.
+[docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) or
+[docs/claude-hooks-integration.md](docs/claude-hooks-integration.md) for a
+copy-pasteable example.
+
+### Choosing which agent drives the light
+
+If you run more than one agent, tag each agent's hooks with `--source` (for
+example `tenon-hook-state --source claude working`) and pick the owner:
+
+```bash
+tenon-light source claude   # Claude drives the light
+tenon-light source codex    # Codex drives the light
+tenon-light source off      # neither; return the light to you
+tenon-light source          # show the current owner
+```
+
+A single agent needs no `--source` and no selector. Full model:
+[docs/multi-agent-routing.md](docs/multi-agent-routing.md).
 
 ## Troubleshooting
 

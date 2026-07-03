@@ -46,6 +46,15 @@ PostToolUse       -> working
 Stop              -> idle
 ```
 
+## Running Alongside Claude Code
+
+Codex is not the only supported workflow; Claude Code can drive the same light
+(see [docs/claude-hooks-integration.md](claude-hooks-integration.md)). If you run
+both, add `--source codex` to each command below and pick an owner with
+`tenon-light source codex`. Without the flag, Codex hooks keep working exactly as
+before. The full model is in
+[docs/multi-agent-routing.md](multi-agent-routing.md).
+
 ## Hook Locations
 
 Codex can discover hooks from:
