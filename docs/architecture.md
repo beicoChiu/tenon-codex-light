@@ -1,13 +1,13 @@
 # Architecture
 
-Tenon Codex Light is a local-first ambient workspace feedback system. It turns
+Tenon Signal Light is a local-first ambient workspace feedback system. It turns
 software workflow state into physical Tenon light state without sending prompt
 content, file paths, or local activity to a cloud service.
 
 ## System Flow
 
 ```text
-Codex lifecycle event
+Agent lifecycle event
   -> safe command hook
   -> tenon-hook-state
   -> user-private state file
@@ -29,7 +29,7 @@ write fails.
 
 | Component | Responsibility |
 | --- | --- |
-| Codex hooks | Convert lifecycle events into fixed local states |
+| Agent hooks | Convert lifecycle events into fixed local states |
 | `tenon-hook-state` | Validate and atomically write the local state file |
 | State file | Store the current workspace signal enum in a user-private path |
 | Native macOS daemon | Watch state changes and write allowlisted light commands |
@@ -48,7 +48,7 @@ write fails.
 
 ## Local-First Boundary
 
-Tenon Codex Light is not a cloud service and is not an official product
+Tenon Signal Light is not a cloud service and is not an official product
 integration. It is a local automation bridge:
 
 - no prompt upload

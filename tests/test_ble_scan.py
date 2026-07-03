@@ -1,4 +1,4 @@
-from tenon_codex_light.ble_scan import (
+from tenon_signal_light.ble_scan import (
     BleScanError,
     CharacteristicInfo,
     DeviceInfo,
@@ -9,7 +9,7 @@ from tenon_codex_light.ble_scan import (
     normalize_uuid,
     redact_identifier,
 )
-from tenon_codex_light.macos_tcc import BLUETOOTH_USAGE_KEY, has_bluetooth_usage_description
+from tenon_signal_light.macos_tcc import BLUETOOTH_USAGE_KEY, has_bluetooth_usage_description
 
 
 def test_normalize_uuid() -> None:

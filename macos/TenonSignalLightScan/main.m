@@ -17,7 +17,7 @@ static NSData *effectPayloadFromJson(NSString *json);
 - (instancetype)init {
     self = [super init];
     if (!self) { return nil; }
-    NSString *dir = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Logs/TenonCodexLight"];
+    NSString *dir = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Logs/TenonSignalLight"];
     [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
     self.path = [dir stringByAppendingPathComponent:@"scan.log"];
     [@"" writeToFile:self.path atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -135,7 +135,7 @@ static NSData *effectPayloadFromJson(NSString *json);
             break;
         case CBManagerStateUnauthorized:
             [self.logger write:@"bluetooth_state: unauthorized"];
-            [self.logger write:@"Open System Settings -> Privacy & Security -> Bluetooth and allow Tenon Codex Light Scan."];
+            [self.logger write:@"Open System Settings -> Privacy & Security -> Bluetooth and allow Tenon Signal Light Scan."];
             [self finish:2];
             break;
         case CBManagerStateUnsupported:
@@ -170,7 +170,7 @@ static NSData *effectPayloadFromJson(NSString *json);
 
 - (BOOL)acquireDaemonLock {
     if (self.lockFileDescriptor >= 0) { return YES; }
-    NSString *dir = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/TenonCodexLight/locks"];
+    NSString *dir = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/TenonSignalLight/locks"];
     [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:@{NSFilePosixPermissions: @0700} error:nil];
     NSString *name = [self lockNameForStateFile:self.stateFilePath device:self.targetIdentifier.UUIDString ?: @""];
     self.lockFilePath = [dir stringByAppendingPathComponent:name];
@@ -838,7 +838,7 @@ static NSString *argumentValue(NSArray<NSString *> *arguments, NSString *name) {
 }
 
 static NSString *defaultStateFilePath(void) {
-    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/TenonCodexLight/state"];
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/TenonSignalLight/state"];
 }
 
 static NSData *hsvPayloadFromArguments(NSArray<NSString *> *arguments) {

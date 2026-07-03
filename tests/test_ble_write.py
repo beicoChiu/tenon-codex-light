@@ -1,7 +1,7 @@
 import subprocess
 
-from tenon_codex_light.ble_write import ColorWriteRequest, EffectWriteRequest, WriteMode
-from tenon_codex_light.protocol import (
+from tenon_signal_light.ble_write import ColorWriteRequest, EffectWriteRequest, WriteMode
+from tenon_signal_light.protocol import (
     EffectControl,
     TENON_DESK_SERVICE_UUID,
     TENON_LEDSTRIP_CHARACTERISTIC_UUID,

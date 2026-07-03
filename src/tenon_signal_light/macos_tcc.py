@@ -45,6 +45,6 @@ def require_bluetooth_usage_description() -> None:
 
     raise MacOSBluetoothUsageDescriptionError(
         "macOS will crash this Python before BLE scan because its app bundle is missing "
-        f"{BLUETOOTH_USAGE_KEY}. Use a packaged Tenon Codex Light app/launcher with a Bluetooth "
+        f"{BLUETOOTH_USAGE_KEY}. Use a packaged Tenon Signal Light app/launcher with a Bluetooth "
         "usage description, or a Python distribution whose Python.app declares Bluetooth usage."
     )

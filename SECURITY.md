@@ -1,6 +1,6 @@
 # Security Policy
 
-Tenon Codex Light is a local automation tool for Codex and Beflo Tenon. It should not collect, store, or upload prompts, tool input, file paths, secrets, or source code.
+Tenon Signal Light is a local automation tool for Codex and Beflo Tenon. It should not collect, store, or upload prompts, tool input, file paths, secrets, or source code.
 
 This is an unofficial local automation side project, not an official Beflo or
 OpenAI product. It is provided as-is with no service-level agreement, support

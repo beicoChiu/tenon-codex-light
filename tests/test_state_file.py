@@ -1,13 +1,13 @@
 from pathlib import Path
 import stat
 
-from tenon_codex_light.state_file import DEFAULT_STATE_FILE, STATE_FILE_ENV_VAR, default_state_file, read_state_file, write_state_file
-from tenon_codex_light.states import CodexLightState, parse_state
+from tenon_signal_light.state_file import DEFAULT_STATE_FILE, STATE_FILE_ENV_VAR, default_state_file, read_state_file, write_state_file
+from tenon_signal_light.states import SignalLightState, parse_state
 
 
 def test_parse_state_accepts_fixed_enum() -> None:
-    assert parse_state("working\n") == CodexLightState.WORKING
-    assert parse_state("needs_input") == CodexLightState.NEEDS_INPUT
+    assert parse_state("working\n") == SignalLightState.WORKING
+    assert parse_state("needs_input") == SignalLightState.NEEDS_INPUT
 
 
 def test_parse_state_rejects_unknown_value() -> None:
@@ -22,13 +22,13 @@ def test_parse_state_rejects_unknown_value() -> None:
 def test_state_file_roundtrip(tmp_path: Path) -> None:
     state_file = tmp_path / "state"
 
-    write_state_file(CodexLightState.ERROR, state_file)
+    write_state_file(SignalLightState.ERROR, state_file)
 
-    assert read_state_file(state_file) == CodexLightState.ERROR
+    assert read_state_file(state_file) == SignalLightState.ERROR
 
 
 def test_default_state_file_is_user_private_application_support_path() -> None:
-    assert DEFAULT_STATE_FILE == Path.home() / "Library" / "Application Support" / "TenonCodexLight" / "state"
+    assert DEFAULT_STATE_FILE == Path.home() / "Library" / "Application Support" / "TenonSignalLight" / "state"
 
 
 def test_default_state_file_uses_env_override(tmp_path: Path, monkeypatch) -> None:
@@ -41,7 +41,7 @@ def test_default_state_file_uses_env_override(tmp_path: Path, monkeypatch) -> No
 def test_state_file_write_uses_private_permissions(tmp_path: Path) -> None:
     state_file = tmp_path / "private" / "state"
 
-    write_state_file(CodexLightState.IDLE, state_file)
+    write_state_file(SignalLightState.IDLE, state_file)
 
     parent_mode = stat.S_IMODE(state_file.parent.stat().st_mode)
     file_mode = stat.S_IMODE(state_file.stat().st_mode)
