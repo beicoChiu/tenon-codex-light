@@ -204,7 +204,7 @@ Recommended event mapping:
 | --- | --- | --- |
 | `idle` | `SessionStart`, `Stop` | `SessionStart`, `Stop` |
 | `working` | `UserPromptSubmit`, `PreToolUse`, `PostToolUse` | `UserPromptSubmit`, `PreToolUse`, `PostToolUse` |
-| `needs_input` | `PermissionRequest` | `Notification` |
+| `needs_input` | `PermissionRequest` | `PermissionRequest` |
 
 After installation, hooks can call `tenon-hook-state` directly. See
 [docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) or

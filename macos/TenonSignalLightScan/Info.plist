@@ -21,8 +21,8 @@
   <key>LSUIElement</key>
   <true/>
   <key>NSBluetoothAlwaysUsageDescription</key>
-  <string>Tenon Signal Light uses Bluetooth to find and control your nearby Beflo Tenon LED light.</string>
+  <string>Tenon Signal Light uses Bluetooth to find and control your nearby Beflo Tenon ambient light.</string>
   <key>NSBluetoothPeripheralUsageDescription</key>
-  <string>Tenon Signal Light uses Bluetooth to find and control your nearby Beflo Tenon LED light.</string>
+  <string>Tenon Signal Light uses Bluetooth to find and control your nearby Beflo Tenon ambient light.</string>
 </dict>
 </plist>

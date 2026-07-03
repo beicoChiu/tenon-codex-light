@@ -34,16 +34,19 @@ SessionStart      -> idle
 UserPromptSubmit  -> working
 PreToolUse        -> working
 PostToolUse       -> working
-Notification      -> needs_input   (Claude needs permission or input)
+PermissionRequest -> needs_input   (a tool-permission dialog appears)
 Stop              -> idle
 SessionEnd        -> off           (optional)
 ```
 
-`Notification` is the Claude Code equivalent of Codex's `PermissionRequest`: it
-fires when Claude is waiting on you for a permission decision or input. Unlike
-`PreToolUse`, a `Notification` hook needs an explicit `matcher` naming the
-notification type (`permission_prompt`, `idle_prompt`, `agent_needs_input`); an
-entry with no matcher does not fire.
+`PermissionRequest` fires when a tool-permission dialog appears, which is exactly
+"Claude is waiting on you", so it maps to `needs_input`. It uses a tool-name
+`matcher` just like `PreToolUse` (`*` matches every tool).
+
+Prefer `PermissionRequest` over the `Notification` event for this. `Notification`
+only fires when Claude Code actually emits a notification, which it suppresses
+while the terminal is focused — so a permission prompt you are looking at would
+never change the light.
 
 ## Hook Locations
 
@@ -115,21 +118,9 @@ tenon-hook-state` if Claude Code cannot find it on `PATH`.
         ]
       }
     ],
-    "Notification": [
+    "PermissionRequest": [
       {
-        "matcher": "permission_prompt",
-        "hooks": [
-          { "type": "command", "command": "tenon-hook-state --source claude needs_input" }
-        ]
-      },
-      {
-        "matcher": "idle_prompt",
-        "hooks": [
-          { "type": "command", "command": "tenon-hook-state --source claude needs_input" }
-        ]
-      },
-      {
-        "matcher": "agent_needs_input",
+        "matcher": "*",
         "hooks": [
           { "type": "command", "command": "tenon-hook-state --source claude needs_input" }
         ]

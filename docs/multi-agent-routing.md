@@ -78,6 +78,6 @@ your official Beflo/Tenon app.
 
 ## Optional: Menu-Bar Toggle
 
-Any menu-bar tool (SwiftBar, xbar, Raycast, a keyboard shortcut) can switch the
-owner by calling `tenon-light source ...`. The CLI is the supported interface;
-wiring it into a menu bar is left to your own setup.
+Any local menu-bar or keyboard-shortcut tool can switch the owner by calling
+`tenon-light source ...`. The CLI is the supported interface; wiring it into a
+menu bar is left to your own setup.

@@ -7,7 +7,7 @@ content, file paths, or local activity to a cloud service.
 ## System Flow
 
 ```text
-Codex lifecycle event
+Agent lifecycle event
   -> safe command hook
   -> tenon-hook-state
   -> user-private state file
@@ -29,7 +29,7 @@ write fails.
 
 | Component | Responsibility |
 | --- | --- |
-| Codex hooks | Convert lifecycle events into fixed local states |
+| Agent hooks | Convert lifecycle events into fixed local states |
 | `tenon-hook-state` | Validate and atomically write the local state file |
 | State file | Store the current workspace signal enum in a user-private path |
 | Native macOS daemon | Watch state changes and write allowlisted light commands |
