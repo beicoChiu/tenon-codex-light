@@ -2,17 +2,17 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_NAME="Tenon Codex Light Scan.app"
+APP_NAME="Tenon Signal Light Scan.app"
 APP_DIR="$ROOT_DIR/build/$APP_NAME"
 CONTENTS_DIR="$APP_DIR/Contents"
 MACOS_DIR="$CONTENTS_DIR/MacOS"
-SOURCE_DIR="$ROOT_DIR/macos/TenonCodexLightScan"
+SOURCE_DIR="$ROOT_DIR/macos/TenonSignalLightScan"
 
 rm -rf "$APP_DIR"
 mkdir -p "$MACOS_DIR"
 
 cp "$SOURCE_DIR/Info.plist" "$CONTENTS_DIR/Info.plist"
-clang "$SOURCE_DIR/main.m" -o "$MACOS_DIR/TenonCodexLightScan" -framework AppKit -framework CoreBluetooth -framework Foundation -fobjc-arc
+clang "$SOURCE_DIR/main.m" -o "$MACOS_DIR/TenonSignalLightScan" -framework AppKit -framework CoreBluetooth -framework Foundation -fobjc-arc
 codesign --force --sign - "$APP_DIR" >/dev/null
 
 echo "$APP_DIR"

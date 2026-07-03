@@ -1,8 +1,8 @@
-# Tenon Codex Light
+# Tenon Signal Light
 
 A programmable ambient workspace signal layer for AI-assisted workflows.
 
-Tenon Codex Light turns [Beflo Tenon and Tenon mini](https://gobeflo.com)
+Tenon Signal Light turns [Beflo Tenon and Tenon mini](https://gobeflo.com)
 devices into physical status indicators for local automation systems, coding
 agents, focus workflows, and ergonomic routines.
 
@@ -17,7 +17,7 @@ not affiliated with or supported by OpenAI.
 
 ## What It Does
 
-Tenon Codex Light runs a small native macOS daemon that listens to a local state
+Tenon Signal Light runs a small native macOS daemon that listens to a local state
 file. Codex lifecycle hooks write simple state names such as `working` or
 `needs_input`, and the daemon maps those states to allowlisted Tenon light
 presets over Bluetooth.
@@ -73,7 +73,7 @@ light," not "restore my previous desk lighting settings."
 - [Bleak](https://github.com/hbldh/bleak), installed from `requirements.txt`
 
 Tenon may allow only one active Bluetooth connection at a time. Before running
-Tenon Codex Light, check the official Beflo/Tenon mobile app and make sure it is
+Tenon Signal Light, check the official Beflo/Tenon mobile app and make sure it is
 not connected to the desk. If it is connected, tap disconnect in the app so
 Tenon releases the Bluetooth connection.
 
@@ -81,7 +81,7 @@ Tenon releases the Bluetooth connection.
 
 ### 1. Install Dependencies
 
-Tenon Codex Light uses [Bleak](https://github.com/hbldh/bleak) for Python
+Tenon Signal Light uses [Bleak](https://github.com/hbldh/bleak) for Python
 Bluetooth helper scripts. `requirements.txt` is the project dependency file so
 setup, CI, and future runtime dependencies stay consistent.
 
@@ -101,7 +101,7 @@ scripts/build-macos-scan-app
 ### 3. Scan For Your Tenon
 
 ```bash
-open "build/Tenon Codex Light Scan.app" --args --duration 8 --verbose
+open "build/Tenon Signal Light Scan.app" --args --duration 8 --verbose
 ```
 
 Look in the scan output for your Tenon device identifier. Use that value as
@@ -110,7 +110,7 @@ Look in the scan output for your Tenon device identifier. Use that value as
 ### 4. Start The Daemon
 
 ```bash
-open -n -W "build/Tenon Codex Light Scan.app" --args \
+open -n -W "build/Tenon Signal Light Scan.app" --args \
   --daemon \
   --address <TENON_DEVICE_ID>
 ```
@@ -164,9 +164,9 @@ tenon-hook-state idle
 
 | Item | Location |
 | --- | --- |
-| Native macOS app | `build/Tenon Codex Light Scan.app` |
-| State file | `~/Library/Application Support/TenonCodexLight/state` |
-| Log file | `~/Library/Logs/TenonCodexLight/scan.log` |
+| Native macOS app | `build/Tenon Signal Light Scan.app` |
+| State file | `~/Library/Application Support/TenonSignalLight/state` |
+| Log file | `~/Library/Logs/TenonSignalLight/scan.log` |
 | Hook command | `tenon-hook-state` |
 | Codex hooks example | [docs/codex-hooks-integration.md](docs/codex-hooks-integration.md) |
 
@@ -224,7 +224,7 @@ copy-pasteable `hooks.json` example.
 - Check the daemon log:
 
 ```bash
-tail -n 120 ~/Library/Logs/TenonCodexLight/scan.log
+tail -n 120 ~/Library/Logs/TenonSignalLight/scan.log
 ```
 
 - Restart the daemon.
@@ -235,7 +235,7 @@ tail -n 120 ~/Library/Logs/TenonCodexLight/scan.log
 - Check the state file:
 
 ```bash
-cat "$HOME/Library/Application Support/TenonCodexLight/state"
+cat "$HOME/Library/Application Support/TenonSignalLight/state"
 ```
 
 - Run the manual state test again:
@@ -267,7 +267,7 @@ You can also use the official Tenon/Beflo app to return to your normal lighting.
 
 ## Safety And Privacy
 
-Tenon Codex Light is local convenience automation, not a security boundary.
+Tenon Signal Light is local convenience automation, not a security boundary.
 Bluetooth access depends on Tenon's firmware pairing and encryption behavior, so
 use it only in trusted physical environments.
 

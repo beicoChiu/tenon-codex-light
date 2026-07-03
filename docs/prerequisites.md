@@ -44,19 +44,19 @@ Build and run the native scan app:
 
 ```bash
 scripts/build-macos-scan-app
-open "build/Tenon Codex Light Scan.app" --args --duration 8 --verbose
+open "build/Tenon Signal Light Scan.app" --args --duration 8 --verbose
 ```
 
 For service discovery:
 
 ```bash
-open "build/Tenon Codex Light Scan.app" --args --duration 8 --services --verbose
+open "build/Tenon Signal Light Scan.app" --args --duration 8 --services --verbose
 ```
 
 Read the log:
 
 ```bash
-tail -n 120 ~/Library/Logs/TenonCodexLight/scan.log
+tail -n 120 ~/Library/Logs/TenonSignalLight/scan.log
 ```
 
 ## BLE Discovery Requirements

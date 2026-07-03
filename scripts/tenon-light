@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CLI scaffold for Tenon Codex Light."""
+"""CLI scaffold for Tenon Signal Light."""
 
 from __future__ import annotations
 
@@ -12,9 +12,9 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from tenon_codex_light.protocol import EffectControl, HsvColor, build_effect_json_payload, build_hsv_payload
-from tenon_codex_light.ble_scan import BleakMissingError, BleScanError, format_scan_result, run_scan
-from tenon_codex_light.ble_write import (
+from tenon_signal_light.protocol import EffectControl, HsvColor, build_effect_json_payload, build_hsv_payload
+from tenon_signal_light.ble_scan import BleakMissingError, BleScanError, format_scan_result, run_scan
+from tenon_signal_light.ble_write import (
     BleWriteError,
     ColorWriteRequest,
     EffectWriteRequest,
@@ -22,9 +22,9 @@ from tenon_codex_light.ble_write import (
     run_write_effect_control,
     run_write_hsv_color,
 )
-from tenon_codex_light.daemon import NativeAppDaemonRunner
-from tenon_codex_light.state_file import default_state_file, write_state_file
-from tenon_codex_light.states import parse_state
+from tenon_signal_light.daemon import NativeAppDaemonRunner
+from tenon_signal_light.state_file import default_state_file, write_state_file
+from tenon_signal_light.states import parse_state
 
 
 def format_payload(payload: bytes) -> str:
@@ -85,7 +85,7 @@ def main() -> int:
     daemon_parser.add_argument("--characteristic-uuid", default="4D543739-3333-2E4F-4E4F-4F2E434C4544")
     daemon_parser.add_argument("--state-file", type=Path, default=default_state_file())
     daemon_parser.add_argument("--poll-interval", type=float, default=0.25)
-    daemon_parser.add_argument("--app-path", type=Path, default=PROJECT_ROOT / "build" / "Tenon Codex Light Scan.app")
+    daemon_parser.add_argument("--app-path", type=Path, default=PROJECT_ROOT / "build" / "Tenon Signal Light Scan.app")
     daemon_parser.add_argument("--once", action="store_true", help="process current state once and exit")
     daemon_parser.add_argument("--disable-effects", action="store_true", help="force HSV fallback instead of two-color effects")
 

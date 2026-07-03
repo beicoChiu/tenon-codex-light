@@ -1,4 +1,4 @@
-"""Console entry point for the safe Codex hook state writer."""
+"""Console entry point for the safe hook state writer."""
 
 from __future__ import annotations
 

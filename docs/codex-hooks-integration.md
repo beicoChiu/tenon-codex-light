@@ -11,7 +11,7 @@ Reference: <https://developers.openai.com/codex/hooks>
 ```text
 Codex hooks
   -> tenon-hook-state
-  -> ~/Library/Application Support/TenonCodexLight/state
+  -> ~/Library/Application Support/TenonSignalLight/state
   -> native macOS daemon
   -> allowlisted effect write, with response-mode HSV fallback
   -> Tenon LED
@@ -118,8 +118,8 @@ command -v tenon-hook-state
 The command:
 
 - accepts only one fixed enum argument
-- writes only `~/Library/Application Support/TenonCodexLight/state` by default
-- supports `--state-file` and `TENON_CODEX_LIGHT_STATE_FILE` for tests and
+- writes only `~/Library/Application Support/TenonSignalLight/state` by default
+- supports `--state-file` and `TENON_SIGNAL_LIGHT_STATE_FILE` for tests and
   advanced users
 - returns quickly
 - does not read stdin
@@ -209,7 +209,7 @@ Start the daemon separately, then simulate hook events by writing states:
 
 ```bash
 scripts/build-macos-scan-app
-open -n -W "build/Tenon Codex Light Scan.app" --args \
+open -n -W "build/Tenon Signal Light Scan.app" --args \
   --daemon \
   --address <TENON_DEVICE_ID>
 ```

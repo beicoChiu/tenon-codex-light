@@ -1,13 +1,13 @@
 # Workflow Ideas
 
-Tenon Codex Light is a first step toward an ambient programmable workspace:
+Tenon Signal Light is a first step toward an ambient programmable workspace:
 software state becomes physical context without adding another screen.
 
 ## AI-Assisted Development
 
 Codex can run local hooks when a session starts, when a prompt is submitted,
 before and after tool use, when permission is needed, and when the session
-stops. Tenon Codex Light maps those lifecycle events to calm physical signals:
+stops. Tenon Signal Light maps those lifecycle events to calm physical signals:
 
 | Workflow moment | Ambient signal |
 | --- | --- |

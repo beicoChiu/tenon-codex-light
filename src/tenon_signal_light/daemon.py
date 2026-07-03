@@ -1,4 +1,4 @@
-"""Local state-file daemon for Tenon Codex Light."""
+"""Local state-file daemon for Tenon Signal Light."""
 
 from __future__ import annotations
 
@@ -17,10 +17,10 @@ from .protocol import (
     build_hsv_payload,
 )
 from .state_file import default_state_file, read_state_file
-from .states import CodexLightState, color_for_state
+from .states import SignalLightState, color_for_state
 
 
-DEFAULT_LOG_FILE = Path("/tmp/tenon_codex_light_daemon.log")
+DEFAULT_LOG_FILE = Path("/tmp/tenon_signal_light_daemon.log")
 
 
 class ColorWriter(Protocol):
@@ -134,7 +134,7 @@ class StateDaemon:
     def __init__(self, config: DaemonConfig, writer: ColorWriter) -> None:
         self.config = config
         self.writer = writer
-        self.last_state: CodexLightState | None = None
+        self.last_state: SignalLightState | None = None
         self.last_write_at = 0.0
 
     def run_once(self) -> bool:

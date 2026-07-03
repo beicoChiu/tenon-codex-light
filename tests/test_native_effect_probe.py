@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from tenon_codex_light.protocol import EffectControl, HsvColor, build_effect_json_payload, build_effect_preset_payload
-from tenon_codex_light.states import CodexLightState, effect_preset_for_state
+from tenon_signal_light.protocol import EffectControl, HsvColor, build_effect_json_payload, build_effect_preset_payload
+from tenon_signal_light.states import SignalLightState, effect_preset_for_state
 
 
-NATIVE_SOURCE = Path("macos/TenonCodexLightScan/main.m")
+NATIVE_SOURCE = Path("macos/TenonSignalLightScan/main.m")
 
 
 def test_native_effect_probe_flags_are_present() -> None:
@@ -46,15 +46,15 @@ def test_native_daemon_effect_integration_guards_are_present() -> None:
 
 def test_finalized_mapping_values_are_available_to_native_daemon() -> None:
     presets = {
-        CodexLightState.IDLE: ("Cloudy", "none", HsvColor(210, 11, 90), HsvColor(210, 15, 70)),
-        CodexLightState.WORKING: ("Aurora", "breathe", HsvColor(197, 70, 100), HsvColor(270, 80, 100)),
-        CodexLightState.NEEDS_INPUT: (
+        SignalLightState.IDLE: ("Cloudy", "none", HsvColor(210, 11, 90), HsvColor(210, 15, 70)),
+        SignalLightState.WORKING: ("Aurora", "breathe", HsvColor(197, 70, 100), HsvColor(270, 80, 100)),
+        SignalLightState.NEEDS_INPUT: (
             "Lavender Sunset",
             "moving",
             HsvColor(288, 75, 100),
             HsvColor(17, 85, 100),
         ),
-        CodexLightState.ERROR: ("Yellow Alert", "blink", HsvColor(45, 100, 100), HsvColor(45, 100, 100)),
+        SignalLightState.ERROR: ("Yellow Alert", "blink", HsvColor(45, 100, 100), HsvColor(45, 100, 100)),
     }
 
     for state, (name, effect, primary, secondary) in presets.items():
@@ -65,14 +65,14 @@ def test_finalized_mapping_values_are_available_to_native_daemon() -> None:
         assert preset.color == primary
         assert preset.secondary_color == secondary
 
-    assert effect_preset_for_state(CodexLightState.RESTORE) == effect_preset_for_state(CodexLightState.IDLE)
-    assert effect_preset_for_state(CodexLightState.OFF) is None
-    assert effect_preset_for_state(CodexLightState.NEEDS_INPUT).interval_ms == 5000
-    assert effect_preset_for_state(CodexLightState.ERROR).interval_ms == 300
+    assert effect_preset_for_state(SignalLightState.RESTORE) == effect_preset_for_state(SignalLightState.IDLE)
+    assert effect_preset_for_state(SignalLightState.OFF) is None
+    assert effect_preset_for_state(SignalLightState.NEEDS_INPUT).interval_ms == 5000
+    assert effect_preset_for_state(SignalLightState.ERROR).interval_ms == 300
 
 
 def test_two_color_preset_payload_shape() -> None:
-    preset = effect_preset_for_state(CodexLightState.WORKING)
+    preset = effect_preset_for_state(SignalLightState.WORKING)
     assert preset is not None
 
     payload = build_effect_preset_payload(preset)

@@ -1,4 +1,4 @@
-from tenon_codex_light.protocol import (
+from tenon_signal_light.protocol import (
     EffectControl,
     LEDSTRIP_SET_CONTROL_FORMAT_CJSON,
     TENON_LEDSTRIP_CHARACTERISTIC_UUID,

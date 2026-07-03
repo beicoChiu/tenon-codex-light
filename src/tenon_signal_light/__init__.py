@@ -1,4 +1,4 @@
-"""Tenon Codex Light local bridge."""
+"""Tenon Signal Light local bridge."""
 
 __all__ = ["__version__"]
 

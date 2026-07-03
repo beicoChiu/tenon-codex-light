@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write one validated Codex light state for command hooks.
+"""Write one validated workflow light state for command hooks.
 
 This script intentionally does not read stdin or environment hook payloads.
 It only accepts a fixed state enum argument and writes the local state file.
@@ -16,8 +16,8 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from tenon_codex_light.hook_writer import write_hook_state
-from tenon_codex_light.state_file import default_state_file
+from tenon_signal_light.hook_writer import write_hook_state
+from tenon_signal_light.state_file import default_state_file
 
 
 def main() -> int:

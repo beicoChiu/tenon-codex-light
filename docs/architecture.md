@@ -1,6 +1,6 @@
 # Architecture
 
-Tenon Codex Light is a local-first ambient workspace feedback system. It turns
+Tenon Signal Light is a local-first ambient workspace feedback system. It turns
 software workflow state into physical Tenon light state without sending prompt
 content, file paths, or local activity to a cloud service.
 
@@ -48,7 +48,7 @@ write fails.
 
 ## Local-First Boundary
 
-Tenon Codex Light is not a cloud service and is not an official product
+Tenon Signal Light is not a cloud service and is not an official product
 integration. It is a local automation bridge:
 
 - no prompt upload

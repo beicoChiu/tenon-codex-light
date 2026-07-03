@@ -59,7 +59,7 @@ Native macOS write probe, used when raw Python cannot access Bluetooth:
 
 ```bash
 scripts/build-macos-scan-app
-open -W "build/Tenon Codex Light Scan.app" --args \
+open -W "build/Tenon Signal Light Scan.app" --args \
   --write-color \
   --address <TENON_DEVICE_ID> \
   --service-uuid 4D543739-3333-2E4F-4E4F-4F2E4445534B \
@@ -98,13 +98,13 @@ is the current real-hardware path; Python daemon code is reference/test/dev-only
 Default state file:
 
 ```text
-~/Library/Application Support/TenonCodexLight/state
+~/Library/Application Support/TenonSignalLight/state
 ```
 
 Daemon command:
 
 ```bash
-open -n -W "build/Tenon Codex Light Scan.app" --args \
+open -n -W "build/Tenon Signal Light Scan.app" --args \
   --daemon \
   --address <TENON_DEVICE_ID>
 ```
@@ -113,7 +113,7 @@ One-shot test:
 
 ```bash
 .venv/bin/python scripts/tenon-light state idle
-open -n -W "build/Tenon Codex Light Scan.app" --args \
+open -n -W "build/Tenon Signal Light Scan.app" --args \
   --daemon \
   --address <TENON_DEVICE_ID> \
   --once

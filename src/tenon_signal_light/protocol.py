@@ -76,7 +76,7 @@ class EffectControl:
 
 @dataclass(frozen=True)
 class EffectPreset:
-    """Named two-color Tenon preset for Codex state mapping."""
+    """Named two-color Tenon preset for workflow state mapping."""
 
     name: str
     effect: str

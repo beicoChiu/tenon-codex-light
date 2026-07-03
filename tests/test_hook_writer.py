@@ -1,10 +1,10 @@
 from pathlib import Path
 import subprocess
 
-from tenon_codex_light.hook_cli import main as hook_cli_main
-from tenon_codex_light.hook_writer import write_hook_state
-from tenon_codex_light.state_file import STATE_FILE_ENV_VAR, read_state_file
-from tenon_codex_light.states import CodexLightState
+from tenon_signal_light.hook_cli import main as hook_cli_main
+from tenon_signal_light.hook_writer import write_hook_state
+from tenon_signal_light.state_file import STATE_FILE_ENV_VAR, read_state_file
+from tenon_signal_light.states import SignalLightState
 
 
 def test_hook_writer_writes_allowed_enum(tmp_path: Path) -> None:
@@ -12,8 +12,8 @@ def test_hook_writer_writes_allowed_enum(tmp_path: Path) -> None:
 
     state = write_hook_state("needs_input", state_file)
 
-    assert state == CodexLightState.NEEDS_INPUT
-    assert read_state_file(state_file) == CodexLightState.NEEDS_INPUT
+    assert state == SignalLightState.NEEDS_INPUT
+    assert read_state_file(state_file) == SignalLightState.NEEDS_INPUT
 
 
 def test_hook_writer_uses_default_state_file_override(tmp_path: Path, monkeypatch) -> None:
@@ -22,8 +22,8 @@ def test_hook_writer_uses_default_state_file_override(tmp_path: Path, monkeypatc
 
     state = write_hook_state("idle")
 
-    assert state == CodexLightState.IDLE
-    assert read_state_file(state_file) == CodexLightState.IDLE
+    assert state == SignalLightState.IDLE
+    assert read_state_file(state_file) == SignalLightState.IDLE
 
 
 def test_hook_writer_rejects_invalid_state(tmp_path: Path) -> None:
@@ -47,7 +47,7 @@ def test_hook_cli_entrypoint_writes_allowed_enum(tmp_path: Path, monkeypatch) ->
     )
 
     assert hook_cli_main() == 0
-    assert read_state_file(state_file) == CodexLightState.WORKING
+    assert read_state_file(state_file) == SignalLightState.WORKING
 
 
 def test_hook_script_returns_quickly_and_writes_only_state(tmp_path: Path) -> None:

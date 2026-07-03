@@ -1,6 +1,6 @@
 # Security Model
 
-Tenon Codex Light is a local automation tool. It runs inside the developer's local Codex environment and uses lifecycle hooks, local files, and Bluetooth. Treat it with the same care as any tool that can execute hook commands on a workstation.
+Tenon Signal Light is a local automation tool. It runs inside the developer's local Codex environment and uses lifecycle hooks, local files, and Bluetooth. Treat it with the same care as any tool that can execute hook commands on a workstation.
 
 It is local convenience automation, not a security boundary. BLE access depends on Tenon's firmware pairing and encryption behavior, and users should run it only in trusted physical environments.
 
@@ -35,7 +35,7 @@ State file:
 - MUST default to a user-private path:
 
 ```text
-~/Library/Application Support/TenonCodexLight/state
+~/Library/Application Support/TenonSignalLight/state
 ```
 
 - MUST accept only these exact values:
