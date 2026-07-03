@@ -40,7 +40,10 @@ SessionEnd        -> off           (optional)
 ```
 
 `Notification` is the Claude Code equivalent of Codex's `PermissionRequest`: it
-fires when Claude is waiting on you for a permission decision or input.
+fires when Claude is waiting on you for a permission decision or input. Unlike
+`PreToolUse`, a `Notification` hook needs an explicit `matcher` naming the
+notification type (`permission_prompt`, `idle_prompt`, `agent_needs_input`); an
+entry with no matcher does not fire.
 
 ## Hook Locations
 
@@ -114,6 +117,19 @@ tenon-hook-state` if Claude Code cannot find it on `PATH`.
     ],
     "Notification": [
       {
+        "matcher": "permission_prompt",
+        "hooks": [
+          { "type": "command", "command": "tenon-hook-state --source claude needs_input" }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          { "type": "command", "command": "tenon-hook-state --source claude needs_input" }
+        ]
+      },
+      {
+        "matcher": "agent_needs_input",
         "hooks": [
           { "type": "command", "command": "tenon-hook-state --source claude needs_input" }
         ]

@@ -19,9 +19,9 @@ not affiliated with or supported by OpenAI or Anthropic.
 ## What It Does
 
 Tenon Signal Light runs a small native macOS daemon that listens to a local state
-file. Codex lifecycle hooks write simple state names such as `working` or
-`needs_input`, and the daemon maps those states to allowlisted Tenon light
-presets over Bluetooth.
+file. Agent lifecycle hooks (Codex, Claude Code) write simple state names such as
+`working` or `needs_input`, and the daemon maps those states to allowlisted Tenon
+light presets over Bluetooth.
 
 ```text
 AI agent / local workflow
