@@ -253,7 +253,13 @@ tail -n 120 ~/Library/Logs/TenonSignalLight/scan.log
 
 ### Hooks Run But The Light Does Not Change
 
-- Confirm the daemon is still running.
+- If you just added or edited hook config, restart the agent first. Agents load
+  hooks at session start, so a running session keeps the old hook set.
+- If you use the active-source selector, check the owner: `tenon-light source`.
+  A hook tagged `--source claude` is silently skipped while the selector says
+  `codex` or `off` (that is the routing working as designed).
+- Confirm the daemon is still running, and that it was restarted after any
+  change to the state-file path it watches.
 - Check the state file:
 
 ```bash

@@ -62,6 +62,11 @@ For light behavior across every project, user-level `~/.claude/settings.json` is
 easiest. These files are separate from Codex's `~/.codex/hooks.json`, so the two
 integrations never overwrite each other.
 
+Claude Code loads hook configuration when a session starts. After adding or
+editing these hooks, restart Claude Code (or start a new session); an already
+running session keeps executing the old hook set, which looks exactly like "my
+change did nothing".
+
 ## The `tenon-hook-state` Command
 
 Install the package once with `.venv/bin/python -m pip install -e .`, then hooks
