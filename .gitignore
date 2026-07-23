@@ -43,3 +43,6 @@ __pycache__/
 # Local runtime files.
 .tenon-device
 .tenon-signal-light-state
+
+# Local-only SwiftBar integration and device configuration.
+tools/swiftbar/
